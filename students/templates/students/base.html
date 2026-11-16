@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Connect CSS file -->
+    <link rel="stylesheet" href="{% static 'students/css/style.css' %}">
+    <!-- Connect javascript file -->
+    <script src="{% static 'students/js/script.js' %}"></script>
+
+    <title>{% block title %}Student Management System{% endblock %}</title>
+</head>
+<body>
+
+    <header>
+        <h1>Student Management System</h1>
+
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            |
+            <a href="{% url 'about' %}">About</a>
+        </nav>
+
+        <hr>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <hr>
+        <p>Student Management System &copy; 2026</p>
+    </footer>
+
+</body>
+</html>
