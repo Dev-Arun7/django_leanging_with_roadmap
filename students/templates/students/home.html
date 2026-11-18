@@ -1,3 +1,4 @@
+
 {% extends 'students/base.html' %}
 
 {% block title %}
@@ -6,27 +7,16 @@ Home - Student Management
 
 {% block content %}
 
-    <h2>Welcome {{ name }}</h2>
+    <h1>Welcome to Student Management System</h1>
 
-    <p>Age: {{ age }}</p>
-    <p>Learning: {{ course }}</p>
+    <p>Manage your students easily.</p>
 
-    <hr>
+    <p>
+        <a href="{% url 'student_list' %}">View Students</a>
+    </p>
 
-    <h3>Student List</h3>
-
-    {% if students %}
-
-        <ul>
-            {% for student in students %}
-                <li>{{ student }}</li>
-            {% endfor %}
-        </ul>
-
-    {% else %}
-
-        <p>No students available.</p>
-
-    {% endif %}
+    <p>
+        <a href="{% url 'add_student' %}">Add New Student</a>
+    </p>
 
 {% endblock %}

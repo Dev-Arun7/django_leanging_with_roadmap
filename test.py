@@ -1,12 +1,11 @@
-from django.db import models
+def delete_student(request, student_id):
+    # Get the student. Return 404 if the student does not exist.
+    student = get_object_or_404(Student, id=student_id)
 
+    if request.method == "POST":
+        student.delete()
+        return redirect("student_list")
 
-class Student(models.Model):
-    name = models.CharField(max_length=100)
-    age = models.PositiveIntegerField()
-    email = models.EmailField()
-    date_joined = models.DateField(auto_now_add=True)
-    phone = models.CharField(max_length=15, blank=True)
-
-    def __str__(self):
-        return self.name
+    return render(request, "students/confirm_delete.html", {
+        "student": student
+    })
