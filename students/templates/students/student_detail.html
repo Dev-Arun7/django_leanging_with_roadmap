@@ -1,0 +1,45 @@
+
+{% extends "students/base.html" %}
+
+{% block title %}Student Profile{% endblock %}
+
+{% block content %}
+
+<h2>Student Profile</h2>
+
+<h3>{{ student.name }}</h3>
+
+<p><strong>Age:</strong> {{ student.age }}</p>
+<p><strong>Email:</strong> {{ student.email }}</p>
+<p><strong>Date Joined:</strong> {{ student.date_joined }}</p>
+
+<hr>
+
+<h3>Contact Information</h3>
+
+{% if profile %}
+    <p><strong>Phone:</strong> {{ profile.phone|default:"Not provided" }}</p>
+    <p><strong>Address:</strong> {{ profile.address }}</p>
+{% else %}
+    <p>Profile information has not been added yet.</p>
+{% endif %}
+
+<hr>
+
+<h3>Enrolled Courses</h3>
+
+{% for course in student.courses.all %}
+    <p>{{ course.name }}</p>
+{% empty %}
+    <p>No courses enrolled.</p>
+{% endfor %}
+
+<hr>
+
+<a href="{% url 'edit_student' student.id %}">Edit Student</a>
+&nbsp; | &nbsp;
+<a href="{% url 'delete_student' student.id %}">Delete Student</a>
+&nbsp; | &nbsp;
+<a href="{% url 'student_list' %}">Back to Student List</a>
+
+{% endblock %}

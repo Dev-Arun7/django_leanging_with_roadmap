@@ -13,15 +13,12 @@ Student List
 <ul>
     {% for student in students %}
     <li>
-        {{ student.name }} - {{ student.email }}
-        <a href="{% url 'edit_student' student.id %}">
-            Edit
-        </a>
-        <!-- New: Delete link -->
-        <a href="{% url 'delete_student' student.id %}">
-            Delete
+        <a href="{% url 'student_detail' student.id %}">
+            {{ student.name }}
         </a>
     </li>
+    {% empty %}
+    <p>No students available.</p>
     {% endfor %}
 </ul>
 

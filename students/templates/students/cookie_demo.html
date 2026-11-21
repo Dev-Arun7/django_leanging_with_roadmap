@@ -1,0 +1,44 @@
+
+{% extends "students/base.html" %}
+
+{% block content %}
+
+<h2>Cookie Demo</h2>
+
+<p>Current theme: <strong>{{ theme }}</strong></p>
+
+{% if message %}
+    <p>{{ message }}</p>
+{% endif %}
+
+<h3>Save your theme preference</h3>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <select name="theme">
+        <option value="light" {% if theme == "light" %}selected{% endif %}>
+            Light
+        </option>
+
+        <option value="dark" {% if theme == "dark" %}selected{% endif %}>
+            Dark
+        </option>
+    </select>
+
+    <button type="submit" name="action" value="save">
+        Save Theme
+    </button>
+</form>
+
+<hr>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <button type="submit" name="action" value="delete">
+        Remove Cookie
+    </button>
+</form>
+
+{% endblock %}

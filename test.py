@@ -1,11 +1,20 @@
-def delete_student(request, student_id):
-    # Get the student. Return 404 if the student does not exist.
-    student = get_object_or_404(Student, id=student_id)
 
+def session_demo(request):
+
+    # If the user clicks the reset button
     if request.method == "POST":
-        student.delete()
-        return redirect("student_list")
+        request.session.pop("visit_count", None)
+        return redirect("session_demo")
 
-    return render(request, "students/confirm_delete.html", {
-        "student": student
+    # Get the current count from the session
+    visit_count = request.session.get("visit_count", 0)
+
+    # Increase the count
+    visit_count += 1
+
+    # Save the updated count in the session
+    request.session["visit_count"] = visit_count
+
+    return render(request, "students/session_demo.html", {
+        "visit_count": visit_count
     })

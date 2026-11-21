@@ -131,3 +131,11 @@ MAILERS = {
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+
+# Where to go after successful login
+LOGIN_REDIRECT_URL = "student_list"
+
+# Where to go after logout
+LOGOUT_REDIRECT_URL = "login"
+
+LOGIN_URL = "login"
