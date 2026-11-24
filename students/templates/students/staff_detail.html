@@ -1,0 +1,40 @@
+
+{% extends "students/base.html" %}
+
+{% block content %}
+
+<h1>Staff Profile</h1>
+
+<!-- Profile Picture -->
+{% if staff.staff_profile.image %}
+    <img
+        src="{{ staff.staff_profile.image.url }}"
+        alt="{{ staff.username }}"
+        width="150"
+    >
+{% else %}
+    <p>No profile picture uploaded.</p>
+{% endif %}
+
+<h2>Account Information</h2>
+
+<p><strong>Username:</strong> {{ staff.username }}</p>
+<p><strong>First Name:</strong> {{ staff.first_name|default:"Not provided" }}</p>
+<p><strong>Last Name:</strong> {{ staff.last_name|default:"Not provided" }}</p>
+<p><strong>Email:</strong> {{ staff.email|default:"Not provided" }}</p>
+
+<h2>Additional Information</h2>
+
+<p><strong>Phone:</strong> {{ staff.staff_profile.phone|default:"Not provided" }}</p>
+
+<p><strong>Address:</strong> {{ staff.staff_profile.address|default:"Not provided" }}</p>
+
+<p><strong>Date of Birth:</strong> {{ staff.staff_profile.date_of_birth|default:"Not provided" }}</p>
+
+<p><strong>Gender:</strong> {{ staff.staff_profile.get_gender_display|default:"Not provided" }}</p>
+
+<hr>
+
+<a href="{% url 'staff-list' %}">Back to Staff List</a>
+
+{% endblock %}

@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'students',
+    'students.apps.StudentsConfig',  # Changed: use our custom AppConfig
     'courses',
 ]
 
@@ -139,3 +139,7 @@ LOGIN_REDIRECT_URL = "student_list"
 LOGOUT_REDIRECT_URL = "login"
 
 LOGIN_URL = "login"
+
+# Uploaded files
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"

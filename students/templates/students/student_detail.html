@@ -35,6 +35,28 @@
 {% endfor %}
 
 <hr>
+<h2>Student Document</h2>
+
+{% if student.document %}
+
+    <p>
+        <a href="{{ student.document.url }}" target="_blank">
+            View Document
+        </a>
+    </p>
+
+    <p>
+        <a href="{{ student.document.url }}" download>
+            Download Document
+        </a>
+    </p>
+
+{% else %}
+
+    <p>No document uploaded.</p>
+
+{% endif %}
+<hr>
 
 <a href="{% url 'edit_student' student.id %}">Edit Student</a>
 &nbsp; | &nbsp;

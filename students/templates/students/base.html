@@ -22,7 +22,21 @@
             |
             {% if request.user.is_authenticated %}
 
-                <span>Welcome, {{ request.user.username }}</span>
+                <span>
+                    Welcome,
+
+                    {% if request.user.staff_profile.image %}
+                        <img
+                            src="{{ request.user.staff_profile.image.url }}"
+                            alt="Profile"
+                            width="35"
+                            height="35"
+                            style="border-radius: 50%; vertical-align: middle;"
+                        >
+                    {% endif %}
+
+                    {{ request.user.username }}
+                </span>
                 |
                 <button type="submit" form="logout-form">Logout</button>
                 |

@@ -1,0 +1,22 @@
+
+{% extends "students/base.html" %}
+
+{% block content %}
+
+<h1>Staff List</h1>
+
+<p>All registered user accounts.</p>
+
+<ul>
+    {% for staff in staff_list %}
+        <li>
+            <a href="{% url 'staff-detail' staff.pk %}">
+                {{ staff.username }}
+            </a>
+        </li>
+    {% empty %}
+        <li>No staff members found.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

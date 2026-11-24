@@ -2,16 +2,23 @@ from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
+from .views import (home,StudentListView, StaffListView, StaffDetailView,)
 
 
 urlpatterns = [
     path("", views.home, name="home"),
-    path("list/", views.student_list, name="student_list"),
-    path("<int:student_id>/", views.student_detail, name="student_detail"),
-    path("about/", views.about, name="about"),
-    path("add/", views.add_student, name="add_student"),
-    path("edit/<int:student_id>/", views.edit_student, name="edit_student"),
-    path("delete/<int:student_id>/", views.delete_student, name="delete_student"),
+    # path("list/", views.student_list, name="student_list"),
+    path("students/", views.StudentListView.as_view(), name="student_list"),
+    # path("<int:student_id>/", views.student_detail, name="student_detail"),
+    path("students/<int:student_id>/", views.StudentDetailView.as_view(), name="student_detail"),
+    # path("about/", views.about, name="about"),
+    path("about/", views.AboutView.as_view(), name="about"),
+    # path("add/", views.add_student, name="add_student"),
+    path("add/", views.AddStudentView.as_view(), name="add_student"),
+    # path("edit/<int:student_id>/", views.edit_student, name="edit_student"),
+    path("edit/<int:student_id>/",views.EditStudentView.as_view(),name="edit_student"),
+    # path("delete/<int:student_id>/", views.delete_student, name="delete_student"),
+    path("delete/<int:student_id>/",views.DeleteStudentView.as_view(),name="delete_student"),
     path("age/<int:age>/", views.student_by_age, name="student_by_age"),
     path("name/<str:name>/", views.student_by_name, name="student_by_name"),
     path("search/<slug:name>/", views.student_by_slug, name="student_by_slug"),
@@ -65,4 +72,6 @@ urlpatterns = [
     ),
     path("session-demo/", views.session_demo, name="session_demo"),
     path("cookie-demo/", views.cookie_demo, name="cookie_demo"),
+    path("staff/", StaffListView.as_view(), name="staff-list"),
+    path("staff/<int:pk>/",StaffDetailView.as_view(), name="staff-detail"),
     ]

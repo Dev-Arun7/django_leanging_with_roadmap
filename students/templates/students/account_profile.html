@@ -1,23 +1,74 @@
+
 {% extends "students/base.html" %}
 
 {% block title %}My Account{% endblock %}
 
 {% block content %}
 
-<h2>My Account</h2>
+{% if edit_mode %}
 
-<p><strong>Username:</strong> {{ user.username }}</p>
+    <!-- EDIT MODE -->
 
-<p><strong>First Name:</strong> {{ user.first_name }}</p>
+    <h2>Edit Profile</h2>
 
-<p><strong>Last Name:</strong> {{ user.last_name }}</p>
+    <form method="POST" enctype="multipart/form-data">
 
-<p><strong>Email:</strong> {{ user.email }}</p>
+        {% csrf_token %}
 
-<p>
-    <a href="{% url 'password_change' %}">
-        Change Password
+        <h3>Basic Information</h3>
+        {{ user_form.as_p }}
+
+        <h3>Additional Information</h3>
+        {{ profile_form.as_p }}
+
+        <button type="submit">Save Changes</button>
+
+        <a href="{% url 'account_profile' %}">Cancel</a>
+
+    </form>
+
+{% else %}
+
+    <!-- VIEW MODE -->
+
+    <h2>My Account</h2>
+
+    {% if user.staff_profile.image %}
+        <img
+            src="{{ user.staff_profile.image.url }}"
+            alt="{{ user.username }}"
+            width="150"
+        >
+    {% else %}
+        <p>No profile picture uploaded.</p>
+    {% endif %}
+
+    <h3>Account Information</h3>
+
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>First Name:</strong> {{ user.first_name|default:"Not provided" }}</p>
+    <p><strong>Last Name:</strong> {{ user.last_name|default:"Not provided" }}</p>
+    <p><strong>Email:</strong> {{ user.email|default:"Not provided" }}</p>
+
+    <h3>Additional Information</h3>
+
+    <p><strong>Phone:</strong> {{ user.staff_profile.phone|default:"Not provided" }}</p>
+    <p><strong>Address:</strong> {{ user.staff_profile.address|default:"Not provided" }}</p>
+    <p><strong>Date of Birth:</strong> {{ user.staff_profile.date_of_birth|default:"Not provided" }}</p>
+    <p><strong>Gender:</strong> {{ user.staff_profile.get_gender_display|default:"Not provided" }}</p>
+
+    <hr>
+
+    <a href="{% url 'account_profile' %}?edit=true">
+        Edit Profile
     </a>
-</p>
+
+    <p>
+        <a href="{% url 'password_change' %}">
+            Change Password
+        </a>
+    </p>
+
+{% endif %}
 
 {% endblock %}

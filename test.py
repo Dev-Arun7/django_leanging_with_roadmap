@@ -1,20 +1,17 @@
+    # NEW: Validate uploaded document
+    def clean_document(self):
+        document = self.cleaned_data.get("document")
 
-def session_demo(request):
+        # No document uploaded? That's okay.
+        if not document:
+            return document
 
-    # If the user clicks the reset button
-    if request.method == "POST":
-        request.session.pop("visit_count", None)
-        return redirect("session_demo")
+        # Allow only PDF files
+        if not document.name.lower().endswith(".pdf"):
+            raise forms.ValidationError("Only PDF files are allowed.")
 
-    # Get the current count from the session
-    visit_count = request.session.get("visit_count", 0)
+        # Maximum file size: 5 MB
+        if document.size > 5 * 1024 * 1024:
+            raise forms.ValidationError("File size cannot exceed 5 MB.")
 
-    # Increase the count
-    visit_count += 1
-
-    # Save the updated count in the session
-    request.session["visit_count"] = visit_count
-
-    return render(request, "students/session_demo.html", {
-        "visit_count": visit_count
-    })
+        return document
