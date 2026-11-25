@@ -90,7 +90,6 @@ class StudentDetailView(DetailView):
 
 
 
-
 class AboutView(TemplateView):
     template_name = "students/about.html"
 

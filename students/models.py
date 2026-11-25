@@ -27,6 +27,15 @@ class Student(models.Model):
         related_name="enrolled_students"
     )
 
+    # Database-level rules for student
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(age__gte=5, age__lte=100),
+                name="student_age_between_5_and_100"
+            )
+        ]
+
     def __str__(self):
         return self.name
 

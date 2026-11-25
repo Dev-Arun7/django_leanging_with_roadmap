@@ -10,17 +10,20 @@ class StudentForm(forms.ModelForm):
 
     class Meta:
         model = Student
-        fields = ["name", "age", "email", "image", "document"]
+        fields = ["name", "age", "email", "courses", "image", "document"]
+        widgets = {
+        "courses": forms.CheckboxSelectMultiple(),
+                }
 
     # Custom validation for the age field
     def clean_age(self):
         age = self.cleaned_data["age"]
 
-        if age < 5:
-            raise forms.ValidationError("Age must be at least 5.")
+        if age < 10:
+            raise forms.ValidationError("Age must be at least 10.")
 
-        if age > 100:
-            raise forms.ValidationError("Age cannot be above 100.")
+        if age > 80:
+            raise forms.ValidationError("Age cannot be above 80.")
 
         return age
 
